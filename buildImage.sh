@@ -53,4 +53,7 @@ elif [ -e $HOME/.aptproxy ]; then
 fi
 
 echo "Using ARGS: $ARGS"
-docker build $ARGS -t bidms/build-amq:latest imageFiles || check_exit
+docker build \
+  $ARGS \
+  --network $NETWORK \
+  -t bidms/build-amq:latest imageFiles || check_exit

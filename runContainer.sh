@@ -57,6 +57,14 @@ fi
 echo "Using config values from $CONFIG_FILE"
 . $CONFIG_FILE || check_exit
 
+if [ ! -z "$NETWORK" ]; then
+  echo "NETWORK=$NETWORK"
+  NETWORKPARAMS+="--network $NETWORK "
+else
+  echo "ERROR: Required NETWORK value missing from $CONFIG_FILE"
+  exit 1
+fi
+
 if [[ -z "$NO_INTERACTIVE" && -z "$INTERACTIVE_PARAMS" ]]; then
   INTERACTIVE_PARAMS="-ti"
 elif [ ! -z "$NO_INTERACTIVE" ]; then
@@ -65,6 +73,7 @@ elif [ ! -z "$NO_INTERACTIVE" ]; then
 fi
 
 docker run $INTERACTIVE_PARAMS --rm --name "bidms-build-amq" \
+  $NETWORKPARAMS \
   $* \
   bidms/build-amq:latest \
   $ENTRYPOINT_ARGS || check_exit
