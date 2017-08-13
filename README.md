@@ -75,3 +75,32 @@ To list the running containers on the host:
 ```
 docker ps
 ```
+
+## Building and Deploying the ActiveMQ WAR
+
+Building requires the
+[bidms-docker-tomcat-dev](http://www.github.com/calnet-oss/bidms-docker-tomcat-dev)
+container already running.  If you haven't started that container, you must
+start it first.  The reason is because the built artifacts must be deployed
+to the BIDMS Archiva maven repository.
+
+Follow the instructions to start this container.
+
+Then run this script:
+```
+./doBuild.sh
+```
+
+You can check the exit status of this script to discover if the build
+succeeded or not:
+```
+./doBuild.sh
+if [ $? != 0 ]; then
+  echo "Build failed"
+else
+  echo "Build succeeded"
+fi
+```
+
+This deploys the ActiveMQ WAR file to the Archiva server running within the
+`bidms-docker-tomcat-dev` container.
