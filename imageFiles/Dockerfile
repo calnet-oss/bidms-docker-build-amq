@@ -45,8 +45,4 @@ RUN set -x \
        -keystore /etc/ssl/certs/java/cacerts -storepass changeit \
   && rm -f /tmp/tomcat_pubkey.pem
 
-RUN mkdir /root/src && \
-  cd /root/src \
-  && git clone https://github.com/calnet-oss/activemq-broker-and-webconsole-overlay-war.git
-
 RUN rm -rf /core
