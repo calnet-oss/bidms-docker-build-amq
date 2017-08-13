@@ -44,6 +44,14 @@ project.
 If you don't have these images built yet, you'll need to build these
 dependencies first.
 
+Copy the `tomcat_pubkey.pem` file you generated when you set up the
+[bidms-docker-tomcat-dev](http://www.github.com/calnet-oss/bidms-docker-tomcat-dev)
+image.
+
+```
+cp ../bidms-docker-tomcat-dev/imageFiles/tmp_tomcat/tomcat_pubkey.pem imageFiles
+```
+
 Build the container image:
 ```
 ./buildImage.sh

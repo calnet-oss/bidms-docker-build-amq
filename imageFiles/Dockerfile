@@ -36,14 +36,17 @@ RUN set -x \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/*
 
+COPY root/ /root/
+
+COPY tomcat_pubkey.pem /tmp
+RUN set -x \
+  && keytool -import -noprompt -trustcacerts -alias bidms-tomcat-dev \
+       -file /tmp/tomcat_pubkey.pem \
+       -keystore /etc/ssl/certs/java/cacerts -storepass changeit \
+  && rm -f /tmp/tomcat_pubkey.pem
+
 RUN mkdir /root/src && \
   cd /root/src \
   && git clone https://github.com/calnet-oss/activemq-broker-and-webconsole-overlay-war.git
 
-RUN cd /root/src/activemq-broker-and-webconsole-overlay-war \
-  && mvn install
-
-RUN cd /root/src/activemq-broker-and-webconsole-overlay-war/with-jstl-overlay \
-  && mvn package
-  
 RUN rm -rf /core

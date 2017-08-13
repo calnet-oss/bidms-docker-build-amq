@@ -45,6 +45,11 @@ the argument defaults in the Dockerfile will be used.
 EOF
 fi
 
+if [ ! -f imageFiles/tomcat_pubkey.pem ]; then
+  echo "imageFiles/tomcat_pubkey.pem is missing.  Copy from bidms-docker-tomcat-dev."
+  exit 1
+fi
+
 if [ ! -z "$APT_PROXY_URL" ]; then
   ARGS+="--build-arg APT_PROXY_URL=$APT_PROXY_URL "
 elif [ -e $HOME/.aptproxy ]; then
