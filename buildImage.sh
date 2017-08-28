@@ -65,5 +65,4 @@ fi
 echo "Using ARGS: $ARGS"
 docker build \
   $ARGS \
-  --network $NETWORK \
   -t bidms/build-amq:latest imageFiles || check_exit
